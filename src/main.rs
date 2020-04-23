@@ -103,10 +103,8 @@ fn main() {
         //let current_dir = unwrap!(current_dir.to_str());
         // println!("current_dir: {}", Yellow.paint(current_dir));
 
-        if increment == "patch" {
-            increment_semver_mod::increment_patch();
-        } else if increment == "minor" {
-            increment_semver_mod::increment_minor();
+        if increment == "patch" || increment == "minor" {
+            increment_semver_mod::increment_part(&increment);
         } else {
             println!(
                 "{} {}",

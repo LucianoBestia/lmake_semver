@@ -7,7 +7,7 @@ use ansi_term::Colour::{Green, Yellow};
 use std::fs;
 use unwrap::unwrap;
 
-pub fn increment_patch() {
+pub fn increment_part(part: &str) {
     println!("pub fn increment_patch");
     let cargo_toml_filename = "cargo.toml";
     let cargo_toml_text = unwrap!(fs::read_to_string(cargo_toml_filename));
@@ -26,17 +26,22 @@ pub fn increment_patch() {
             let (major, pos) = parse_next_number(&cargo_toml_text, pos);
             //jump over dot
             let pos = pos + 1;
-            let (minor, pos) = parse_next_number(&cargo_toml_text, pos);
+            let (mut minor, pos) = parse_next_number(&cargo_toml_text, pos);
             //jump over dot
             let pos = pos + 1;
-            let (patch, pos_at_the_end_of_semver) = parse_next_number(&cargo_toml_text, pos);
-            // increment patch
-            let patch = patch + 1;
+            let (mut patch, pos) = parse_next_number(&cargo_toml_text, pos);
+            let pos_at_the_end_of_semver = pos;
+            // increment
+            if part == "patch" {
+                patch += 1;
+            } else if part == "minor" {
+                minor += 2;
+            }
             println!(r#"major: {},minor: {}, patch: {}"#, major, minor, patch);
             let new_semver = format!("{}.{}.{}", major, minor, patch);
             println!("new semver: '{}'", Green.paint(&new_semver));
             let new_cargo_toml_text = format!(
-                "{}{}\n\n{}",
+                "{}{}{}",
                 &cargo_toml_text[..pos_start_data],
                 &new_semver,
                 &cargo_toml_text[pos_at_the_end_of_semver..]
@@ -63,8 +68,4 @@ fn parse_next_number(cargo_toml_text: &str, pos: usize) -> (usize, usize) {
     let number: usize = unwrap!(number.parse());
     //return
     (number, pos)
-}
-
-pub fn increment_minor() {
-    println!("pub fn increment_patch");
 }
