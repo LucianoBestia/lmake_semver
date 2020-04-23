@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["increment_minor",""],["increment_patch",""]]});
+initSidebarItems({"fn":[["increment_part",""],["parse_next_number",""]]});
