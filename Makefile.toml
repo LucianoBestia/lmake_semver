@@ -29,7 +29,7 @@ skip_core_tasks = true
     ]
 
     [tasks.run_rel1]
-    description = "run the app with parameters if needed"
+    description = "target/release/lmake_semver"
     clear = true
     script = [
         "echo target/release/lmake_semver",
@@ -37,7 +37,7 @@ skip_core_tasks = true
     ]
 
     [tasks.run_rel2]
-    description = "run the app with parameters if needed"
+    description = "target/release/lmake_semver --help"
     clear = true
     script = [
         "echo target/release/lmake_semver --help",
@@ -45,7 +45,7 @@ skip_core_tasks = true
     ]
 
     [tasks.run_rel3]
-    description = "run the app with parameters if needed"
+    description = "target/release/lmake_semver --increment=patch"
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=minor",
@@ -53,7 +53,7 @@ skip_core_tasks = true
     ]
 
     [tasks.run_rel4]
-    description = "run the app with parameters if needed"
+    description = "target/release/lmake_semver --increment=minor"
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=minor",
@@ -61,7 +61,7 @@ skip_core_tasks = true
     ]
 
     [tasks.run_rel5]
-    description = "run the app with parameters if needed"
+    description = "target/release/lmake_semver --increment=blahblah"
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=blahblah",
@@ -123,10 +123,10 @@ script= [
 "echo ORDER OF EXECUTING MAKE TASKS:",
 "echo 01. ..... change your code in the editor",
 "echo 02. cargo make dev - build developer versions",
-"echo 03. cargo make run_dev1 - run the developer build. 1,2,3,4 are different arguments",
+"echo 03. ......run the developer build. Cargo make tasks list is below.",
 "echo 04. cargo make test - test the test code",
 "echo 05. cargo make release - build release version, it changes the version number in cargo.toml",
-"echo 06. cargo make run_rel1 - run the release build. 1,2,3,4 are different arguments",
+"echo 06. ......run the release build. Cargo make tasks list is below.",
 "echo 07. cargo make doc - copies from cargo.toml to readme.md and from readme.md to main.rs or lib.rs, generates doc and copies to docs folder.",
 "echo 08. ..... run a git commit",
 "echo 09. cargo make sshadd - run only once - adds identity to ssh-agent for git and publish operations",
@@ -134,7 +134,15 @@ script= [
 "echo 11. cargo make crates_io_dry_run - prepare publishing for crates.io",
 "echo 12. ..... run a git tag -a v0.4.0 -m 'version 0.4.0' ",
 "echo 13. cargo make crates_io_publish - publish to crates.io",
-"echo "]
+"echo ",
+"echo RUN WITH ARGUMENTS - release build",
+"echo cargo make run_rel1 - target/release/lmake_semver",
+"echo cargo make run_rel2 - target/release/lmake_semver --help",
+"echo cargo make run_rel3 - target/release/lmake_semver --increment=patch",
+"echo cargo make run_rel4 - target/release/lmake_semver --increment=minor",
+"echo cargo make run_rel5 - target/release/lmake_semver --increment=blahblah",
+"echo "
+]
 
 [tasks.build_dev]
 clear = true
