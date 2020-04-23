@@ -51,7 +51,7 @@ skip_core_tasks = true
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=minor",
-        "target/release/lmake_semver --increment=minor",
+        "target/release/lmake_semver --increment=patch",
     ]
 
     [tasks.run_rel4]

@@ -66,8 +66,7 @@ mod increment_semver_mod;
 mod utilsmod;
 
 use clap::*;
-use glob::*;
-use unwrap::*;
+//use unwrap::unwrap;
 
 #[allow(unused_imports)]
 use ansi_term::Colour::{Green, Red, Yellow};
@@ -100,8 +99,8 @@ fn main() {
     if let Some(increment) = arguments.value_of("increment") {
         let increment = increment.to_lowercase();
 
-        let current_dir = unwrap!(env::current_dir());
-        let current_dir = unwrap!(current_dir.to_str());
+        //let current_dir = unwrap!(env::current_dir());
+        //let current_dir = unwrap!(current_dir.to_str());
         // println!("current_dir: {}", Yellow.paint(current_dir));
 
         if increment == "patch" {

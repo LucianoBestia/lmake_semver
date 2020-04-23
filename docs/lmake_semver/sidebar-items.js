@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["enable_ansi_support",""],["main","The program starts here."]],"mod":[["increment_semver_mod","includecargotomldatamod.rs"],["utilsmod","utilsmod.rs"]]});
