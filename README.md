@@ -6,7 +6,9 @@ version: 0.1.5  date: 2020-04-23 authors: Luciano Bestia
 
 [comment]: # (lmake_readme cargo.toml data end)
 
-Increments the patch or the minor in semver in cargo.toml.  
+## Install
+
+`cargo install lmake_semver`  
 
 ## Run
 
@@ -15,6 +17,7 @@ Run it with this arguments:
 `lmake_semver --increment=patch`  
 `lmake_semver --increment=minor`  
 
-## Install
+## Develope
 
-`cargo install lmake_semver`  
+List the prepared tasks for development: build, run, doc, publish,...  
+`clear; cargo make`  
