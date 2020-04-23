@@ -5,7 +5,9 @@
 //! **Increments the patch or minor version in cargo.toml.**
 //! 
 //! 
-//! Increments the patch or the minor in semver in cargo.toml.  
+//! ## Install
+//! 
+//! `cargo install lmake_semver`  
 //! 
 //! ## Run
 //! 
@@ -14,9 +16,10 @@
 //! `lmake_semver --increment=patch`  
 //! `lmake_semver --increment=minor`  
 //! 
-//! ## Install
+//! ## Develope
 //! 
-//! `cargo install lmake_semver`  
+//! List the prepared tasks for development: build, run, doc, publish,...  
+//! `clear; cargo make`  
 // endregion: lmake_readme include "readme.md" //! A
 
 // region: Clippy
