@@ -35,7 +35,7 @@ pub fn increment_part(part: &str) {
             if part == "patch" {
                 patch += 1;
             } else if part == "minor" {
-                minor += 2;
+                minor += 1;
             }
             println!(r#"major: {},minor: {}, patch: {}"#, major, minor, patch);
             let new_semver = format!("{}.{}.{}", major, minor, patch);
