@@ -1,7 +1,7 @@
 // region: lmake_readme include "readme.md" //! A
 //! # lmake_semver  
 //! 
-//! version: 0.1.1  date: 2020-04-23 authors: Luciano Bestia  
+//! version: 0.1.2  date: 2020-04-23 authors: Luciano Bestia  
 //! **Increments the patch or minor version in cargo.toml.**
 //! 
 //! 

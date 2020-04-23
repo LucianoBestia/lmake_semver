@@ -24,12 +24,12 @@ skip_core_tasks = true
     description = "cargo build release"
     clear = true
     dependencies = [
+        "increment_patch",
         "build_release",
     ]
 
     [tasks.run_rel1]
     description = "run the app with parameters if needed"
-    workspace = false
     clear = true
     script = [
         "echo target/release/lmake_semver",
@@ -38,7 +38,6 @@ skip_core_tasks = true
 
     [tasks.run_rel2]
     description = "run the app with parameters if needed"
-    workspace = false
     clear = true
     script = [
         "echo target/release/lmake_semver --help",
@@ -47,7 +46,6 @@ skip_core_tasks = true
 
     [tasks.run_rel3]
     description = "run the app with parameters if needed"
-    workspace = false
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=minor",
@@ -56,7 +54,6 @@ skip_core_tasks = true
 
     [tasks.run_rel4]
     description = "run the app with parameters if needed"
-    workspace = false
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=minor",
@@ -65,7 +62,6 @@ skip_core_tasks = true
 
     [tasks.run_rel5]
     description = "run the app with parameters if needed"
-    workspace = false
     clear = true
     script = [
         "echo target/release/lmake_semver --increment=blahblah",
@@ -83,7 +79,6 @@ skip_core_tasks = true
     
     [tasks.sshadd]
     description = "adds identity to ssh-agent for git and publish operations"
-    workspace = false
     clear = true
     script = [
         "ssh-add /home/luciano/.ssh/luciano_googlecloud",
@@ -93,7 +88,6 @@ skip_core_tasks = true
 
     [tasks.gitpush]
     description = "push the commits to github, uses ssh agent"
-    workspace = false
     clear = true
     script = [
         "git push",
@@ -112,6 +106,12 @@ skip_core_tasks = true
 	command = "cargo"
 	args = ["publish",]
 
+    [tasks.increment_minor]
+    description = "increments semver minor"
+    clear = true
+    script = [
+        "lmake_semver --increment=minor",
+    ]
 # endregion
 
 [tasks.help_command_order]
@@ -171,3 +171,9 @@ private = true
 command = "cargo"
 args = ["build","--release"]
 
+
+[tasks.increment_patch]
+clear = true
+private = true
+description = "increment semver patch"
+script= ["lmake_semver --increment=patch"]
