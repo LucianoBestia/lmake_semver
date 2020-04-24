@@ -17,7 +17,27 @@ Run it with this arguments:
 `lmake_semver --increment=patch`  
 `lmake_semver --increment=minor`  
 
-## Develope
+## Development
 
-List the prepared tasks for development: build, run, doc, publish,...  
+List of prepared make tasks for development: build, run, doc, publish,...  
 `clear; cargo make`  
+
+## Tasks in Makefile.toml
+
+Libraries use semver. On every build release you can increment patch.  
+
+```toml
+[tasks.release]
+description = "cargo build release"
+clear = true
+dependencies = [
+    "semver_increment_patch",
+    "build_release",
+]
+
+[tasks.semver_increment_patch]
+clear = true
+private = true
+description = "increment semver patch"
+script= ["lmake_semver --increment=patch"]
+```

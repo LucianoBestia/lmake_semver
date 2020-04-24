@@ -24,48 +24,51 @@ skip_core_tasks = true
     description = "cargo build release"
     clear = true
     dependencies = [
-        "increment_patch",
+		# Binaries version is date
+        # "lmake_version_from_date"
+        # Library version is semver
+        "semver_increment_patch",					  
         "build_release",
     ]
 
     [tasks.run_rel1]
-    description = "target/release/lmake_semver"
+    description = "run target/release/${CARGO_MAKE_CRATE_NAME}"
     clear = true
     script = [
-        "echo target/release/lmake_semver",
-        "target/release/lmake_semver ",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME}",
+        "target/release/${CARGO_MAKE_CRATE_NAME} ",
     ]
 
     [tasks.run_rel2]
-    description = "target/release/lmake_semver --help"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --help"
     clear = true
     script = [
-        "echo target/release/lmake_semver --help",
-        "target/release/lmake_semver --help",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --help",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --help",
     ]
 
     [tasks.run_rel3]
-    description = "target/release/lmake_semver --increment=patch"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch"
     clear = true
     script = [
-        "echo target/release/lmake_semver --increment=minor",
-        "target/release/lmake_semver --increment=patch",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch",
     ]
 
     [tasks.run_rel4]
-    description = "target/release/lmake_semver --increment=minor"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor"
     clear = true
     script = [
-        "echo target/release/lmake_semver --increment=minor",
-        "target/release/lmake_semver --increment=minor",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
     ]
 
     [tasks.run_rel5]
-    description = "target/release/lmake_semver --increment=blahblah"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah"
     clear = true
     script = [
-        "echo target/release/lmake_semver --increment=blahblah",
-        "target/release/lmake_semver --increment=blahblah",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
     ]
 
     [tasks.doc]
@@ -101,10 +104,11 @@ skip_core_tasks = true
 
     [tasks.crates_io_publish]
 	clear = true
-	description = "publish to crates.io. TODO: maybe tag the git with the version?"
-    # git tag -a v0.4.0 -m "version 0.4.0"
-	command = "cargo"
-	args = ["publish",]
+	description = "gittag and publish to crates.io"
+    dependencies = [
+		"gittag",
+        "private_crates_io_publish",
+    ]
 
     [tasks.increment_minor]
     description = "increments semver minor"
@@ -112,6 +116,7 @@ skip_core_tasks = true
     script = [
         "lmake_semver --increment=minor",
     ]
+
 # endregion
 
 [tasks.help_command_order]
@@ -136,15 +141,15 @@ script= [
 "echo 10. cargo make sshadd - run only once - adds identity to ssh-agent for git and publish",
 "echo 11. cargo make gitpush - git push",
 "echo 12. cargo make crates_io_dry_run - prepare publishing for crates.io",
-"echo 13. ..... run a git tag -a v0.4.0 -m 'version 0.4.0' ",
-"echo 14. cargo make crates_io_publish - publish to crates.io",
+"echo 13. ..... run a git tag -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION} ",
+"echo 14. cargo make crates_io_publish - gittag and publish to crates.io",
 "echo ",
 "echo RUN WITH ARGUMENTS - release build",
-"echo cargo make run_rel1 - target/release/lmake_semver",
-"echo cargo make run_rel2 - target/release/lmake_semver --help",
-"echo cargo make run_rel3 - target/release/lmake_semver --increment=patch",
-"echo cargo make run_rel4 - target/release/lmake_semver --increment=minor",
-"echo cargo make run_rel5 - target/release/lmake_semver --increment=blahblah",
+"echo cargo make run_rel1 - target/release/${CARGO_MAKE_CRATE_NAME}",
+"echo cargo make run_rel2 - target/release/${CARGO_MAKE_CRATE_NAME} --help",
+"echo cargo make run_rel3 - target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch",
+"echo cargo make run_rel4 - target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+"echo cargo make run_rel5 - target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
 "echo "
 ]
 
@@ -154,6 +159,28 @@ private = true
 description = "build wasm in dev mode"
 command = "cargo"
 args = ["build"]
+
+# Libraries version are semver, but binaries are dates.
+[tasks.semver_increment_patch]
+clear = true
+private = true
+description = "increment semver patch"
+script= ["lmake_semver --increment=patch"]
+
+# Binaries version are dates, but Libraries are semver.
+# For PWA must update version also in the service_worker.js.
+[tasks.lmake_version_from_date]
+description = "in cargo.toml change version to today date"
+clear = true
+private = true
+script= ["lmake_version_from_date ../webfolder/${CARGO_MAKE_CRATE_NAME}/service_worker.js"]
+
+[tasks.build_release]
+description = "build for release"
+clear = true
+private = true
+command = "cargo"
+args = ["build","--release"]
 
 [tasks.include_readme]
 clear = true
@@ -176,16 +203,18 @@ script = [
     "\\rsync -avz --delete-after target/doc/*  docs/"
 ]
 
-[tasks.build_release]
-description = "build for release"
+[tasks.gittag]
 clear = true
 private = true
+description = "git tag -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}"
+script = [
+	"echo git tag -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}",
+    "git tag -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}"
+]
+
+[tasks.private_crates_io_publish]
+clear = true
+private = true
+description = "publish to crates.io."
 command = "cargo"
-args = ["build","--release"]
-
-
-[tasks.increment_patch]
-clear = true
-private = true
-description = "increment semver patch"
-script= ["lmake_semver --increment=patch"]
+args = ["publish"]
