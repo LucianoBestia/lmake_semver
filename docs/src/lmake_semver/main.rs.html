@@ -150,11 +150,31 @@
 <span id="150">150</span>
 <span id="151">151</span>
 <span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// region: lmake_readme include &quot;readme.md&quot; //! A</span>
 <span class="doccomment">//! # lmake_semver  </span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! version: 0.1.5  date: 2020-04-23 authors: Luciano Bestia  </span>
+<span class="doccomment">//! version: 0.1.6  date: 2020-04-24 authors: Luciano Bestia  </span>
 <span class="doccomment">//! **Increments the patch or minor version in cargo.toml.**</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! </span>
@@ -169,10 +189,30 @@
 <span class="doccomment">//! `lmake_semver --increment=patch`  </span>
 <span class="doccomment">//! `lmake_semver --increment=minor`  </span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! ## Develope</span>
+<span class="doccomment">//! ## Development</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! List the prepared tasks for development: build, run, doc, publish,...  </span>
+<span class="doccomment">//! List of prepared make tasks for development: build, run, doc, publish,...  </span>
 <span class="doccomment">//! `clear; cargo make`  </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! ## Tasks in Makefile.toml</span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Libraries use semver. On every build release you can increment patch.  </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! ```toml</span>
+<span class="doccomment">//! [tasks.release]</span>
+<span class="doccomment">//! description = &quot;cargo build release&quot;</span>
+<span class="doccomment">//! clear = true</span>
+<span class="doccomment">//! dependencies = [</span>
+<span class="doccomment">//!     &quot;semver_increment_patch&quot;,</span>
+<span class="doccomment">//!     &quot;build_release&quot;,</span>
+<span class="doccomment">//! ]</span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! [tasks.semver_increment_patch]</span>
+<span class="doccomment">//! clear = true</span>
+<span class="doccomment">//! private = true</span>
+<span class="doccomment">//! description = &quot;increment semver patch&quot;</span>
+<span class="doccomment">//! script= [&quot;lmake_semver --increment=patch&quot;]</span>
+<span class="doccomment">//! ```</span>
 <span class="comment">// endregion: lmake_readme include &quot;readme.md&quot; //! A</span>
 
 <span class="comment">// region: Clippy</span>

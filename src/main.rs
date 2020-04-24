@@ -1,7 +1,7 @@
 // region: lmake_readme include "readme.md" //! A
 //! # lmake_semver  
 //! 
-//! version: 0.1.5  date: 2020-04-23 authors: Luciano Bestia  
+//! version: 0.1.6  date: 2020-04-24 authors: Luciano Bestia  
 //! **Increments the patch or minor version in cargo.toml.**
 //! 
 //! 
@@ -16,10 +16,30 @@
 //! `lmake_semver --increment=patch`  
 //! `lmake_semver --increment=minor`  
 //! 
-//! ## Develope
+//! ## Development
 //! 
-//! List the prepared tasks for development: build, run, doc, publish,...  
+//! List of prepared make tasks for development: build, run, doc, publish,...  
 //! `clear; cargo make`  
+//! 
+//! ## Tasks in Makefile.toml
+//! 
+//! Libraries use semver. On every build release you can increment patch.  
+//! 
+//! ```toml
+//! [tasks.release]
+//! description = "cargo build release"
+//! clear = true
+//! dependencies = [
+//!     "semver_increment_patch",
+//!     "build_release",
+//! ]
+//! 
+//! [tasks.semver_increment_patch]
+//! clear = true
+//! private = true
+//! description = "increment semver patch"
+//! script= ["lmake_semver --increment=patch"]
+//! ```
 // endregion: lmake_readme include "readme.md" //! A
 
 // region: Clippy
