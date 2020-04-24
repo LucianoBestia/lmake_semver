@@ -19,6 +19,8 @@ Run it with this arguments:
 
 ## Development
 
+Documentation:  
+<https://lucianobestia.github.io/lmake_semver>  
 List of prepared make tasks for development: build, run, doc, publish,...  
 `clear; cargo make`  
 
