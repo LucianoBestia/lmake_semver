@@ -29,6 +29,8 @@ List of prepared make tasks for development: build, run, doc, publish,...
 It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev)  
 to verify the trustworthiness of each of your dependencies, including this one.  
 Please, spread this info.  
+On the web use url to read crate reviews example:  
+<bestia.dev/cargo_crev_web/query/num-traits>  
 
 ## Tasks in Makefile.toml
 
