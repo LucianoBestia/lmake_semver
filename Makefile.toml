@@ -98,8 +98,8 @@ script = [
     # "echo $ lmake_version_from_date",
     # "lmake_version_from_date",
     # Library version is semver
-    # "echo $ lmake_semver --increment=patch",
-    # "lmake_semver --increment=patch",
+    "echo $ lmake_semver --increment=patch",
+    "lmake_semver --increment=patch",
     "echo $ cargo fmt",
     "cargo fmt",
     "echo $ cargo build --release",
