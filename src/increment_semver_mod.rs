@@ -9,7 +9,7 @@ use unwrap::unwrap;
 
 pub fn increment_part(part: &str) {
     println!("pub fn increment_patch");
-    let cargo_toml_filename = "cargo.toml";
+    let cargo_toml_filename = "Cargo.toml";
     let cargo_toml_text = unwrap!(fs::read_to_string(cargo_toml_filename));
     // find the line with "version = " including the start quote
     if let Some(pos_start_data) =
@@ -53,7 +53,7 @@ pub fn increment_part(part: &str) {
             panic!("no end quote for version");
         }
     } else {
-        panic!("cargo.toml has no version");
+        panic!("Cargo.toml has no version");
     }
 }
 
